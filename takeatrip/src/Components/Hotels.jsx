@@ -6,8 +6,7 @@ import {Box, Grid, Image, Text,Tag,
 const Hotels = () => {
     const location = useLocation()
     // const [hotels, setHotels] = useState([]);
-  
-    // const navigate =  useNavigate();
+
     const res = location.state.searchdata
     // useEffect(()=>{
      
