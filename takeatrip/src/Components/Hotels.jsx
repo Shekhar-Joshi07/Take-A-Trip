@@ -5,23 +5,10 @@ import {Box, Grid, Image, Text,Tag,
   TagLabel,} from "@chakra-ui/react"
 const Hotels = () => {
     const location = useLocation()
-    // const [hotels, setHotels] = useState([]);
+    
 
     const res = location.state.searchdata
-    // useEffect(()=>{
-     
-    //   axios.get(`https://long-plum-mite-cape.cyclic.app/results?q=${res}`)
-    //   .then(response=>{
-    //     setHotels(response.data)
-    //     console.log("check",response.data)
-    //   }).catch(error=>{
-    //     console.log(error);
-    //   })
-    // },[])
-
-    // const handleHotelClick = (hotelId) => {
-    //   navigate(`/singleHotel/${hotelId}`); 
-    // }
+   
   return (
     // <div>
     //   <h1>Search Results</h1>
