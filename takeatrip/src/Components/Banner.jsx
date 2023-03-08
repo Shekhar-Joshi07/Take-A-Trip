@@ -44,7 +44,7 @@ const Banner = () => {
       
     }
      
-      // navigate("/hotles",{state:{data}})
+     
   };
  
 
