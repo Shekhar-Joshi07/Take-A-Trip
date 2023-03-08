@@ -1,18 +1,12 @@
 import Navbar from "./Components/Navbar";
-import Banner from "./Components/Banner"
-import Midsection from "./Components/Midsection";
-import Traveltips from "./Components/Traveltips";
-import Bottom from "./Components/Bottom";
 import Footer from "./Components/Footer";
+import Allroutes from "./Components/Allroutes";
 function App() {
   return (
     <>
      <Navbar/>
-     <Banner/>
-     <Midsection/>
-     <Traveltips/>
-     <Bottom/>
-     <Footer/>
+     <Allroutes/>
+      <Footer/> 
     </>
     
   );

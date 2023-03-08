@@ -8,6 +8,7 @@ import {
   HStack,
   Select,
   Button,
+  Text
 } from "@chakra-ui/react";
 const Bottom = () => {
   return (
@@ -16,24 +17,28 @@ const Bottom = () => {
         boxShadow="base"
         rounded="md"
         bg="white"
-        height="350px"
+        height={{base:"auto",md:"auto",lg:"350px"}}
         margin="auto"
         marginTop="5rem"
         width="90%"
         display="flex"
+        flexDirection={{base:"column",md:"column",lg:"row"}}
         gap="25px"
-        pr={10}
+        pr={{base:0,md:0,lg:10}}
+       
       >
         <Box
-          width="32%"
+          m={{base:"auto",md:"auto",lg:"unset"}}
+          width={{base:"90%",md:"92%",lg:"32%"}}
+          h={{base:"200px",md:"300px",lg:"330px"}}
           background="url(https://a.travel-assets.com/mad-service/footer/marquee/ORB_App_Footer_v1.jpg) center/cover no-repeat"
         ></Box>
-        <Box width="48%" pt={5}>
+        <Box m="auto" width={{base:"90%",md:"90%",lg:"48%"}}  pt={5}>
           <Heading Heading as="h4" size="lg">
             Rewards are waiting for you in the Orbitz app{" "}
           </Heading>
           <br />
-          <UnorderedList>
+          <UnorderedList mb={{base:"1rem",md:"unset",lg:"unset"}}>
             <ListItem color="gray">
               Earn 4% back when you book your hotel in app, vs. 3% on site
             </ListItem>
@@ -44,14 +49,15 @@ const Bottom = () => {
               Have questions about your stay? Message your hotel right in the
               app
             </ListItem>
-          </UnorderedList>
+          </UnorderedList> 
+          
   
-          <Heading lineHeight={2} as="h4" size="md">
+          <Heading display={{base:"none",md:"block",lg:"block"}}  lineHeight={2} as="h4" size="md">
             Text yourself a download link
           </Heading>
-          <p style={{ color: "gray", marginBottom: "5px" }}>Country code</p>
-          <HStack spacing="20px">
-            <Select color="gray" width="32%" placeholder="Choose code">
+          <Text display={{base:"none",md:"block",lg:"block"}} style={{ color: "gray", marginBottom: "5px" }}>Country code</Text>
+          <HStack  spacing="20px">
+            <Select display={{base:"none",md:"block",lg:"block"}}  color="gray" width="32%" placeholder="Choose code">
               <option value="+54,Argentina">Argentina +54</option>
               <option value="+61,Australia">Australia +61</option>
               <option value="+43,Austria">Austria +43</option>
@@ -83,6 +89,7 @@ const Bottom = () => {
               <option value="+1,USA">USA +1</option>
             </Select>
             <Input
+             display={{base:"none",md:"block",lg:"block"}}
               htmlSize={13}
               width="auto"
               placeholder="Phone number"
@@ -90,6 +97,9 @@ const Bottom = () => {
             />
 
             <Button
+            
+              w={{base:"250px",md:"120px",lg:"120px"}}
+              
               bg="#c83259"
               color="white"
               variant="solid"
@@ -97,7 +107,7 @@ const Bottom = () => {
             >
               Get the app
             </Button>
-            <Heading as="h6" size="sm">
+            <Heading display={{base:"none",md:"none",lg:"block"}} as="h6" size="sm">
              
               Scan the QR code
             </Heading>
@@ -106,6 +116,7 @@ const Bottom = () => {
         </Box>
 
         <Box
+          display={{base:"none",md:"none",lg:"block"}}
           marginTop="2rem"
           height="200px"
           width="18%"
