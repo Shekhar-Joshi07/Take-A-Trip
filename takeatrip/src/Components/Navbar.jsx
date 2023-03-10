@@ -29,9 +29,22 @@ import { MdLuggage,MdDirectionsBoatFilled,MdAccountCircle } from "react-icons/md
 import{BsFillHandbagFill} from "react-icons/bs"
 import {BiSearchAlt2} from "react-icons/bi"
 import { Link } from "react-router-dom";
+import { useToast } from '@chakra-ui/react'
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  const { loginWithRedirect,isAuthenticated,logout,user } = useAuth0();
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast()
+
+  const logoutAleart= ()=>{
+    toast({
+      title: 'Logged Out Successful',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
+  }
 
   return (
     <header>
@@ -97,7 +110,7 @@ const Navbar = () => {
           <Button display={{base:"none",md:"block",lg:"block"}}  fontSize="14px" variant="none"  _hover={{ color: 'teal.300' }}>List your property {BsFillHandbagFill}</Button>
           <Button display={{base:"none",md:"block",lg:"block"}}  fontSize="14px" variant="none"  _hover={{ color: 'teal.300' }}>Support</Button>
           <Button display={{base:"none",md:"block",lg:"block"}}  fontSize="14px" variant="none"  _hover={{ color: 'teal.300' }}>Trips</Button>
-          <Button display={{base:"none",md:"block",lg:"block"}}  fontSize="14px" variant="none"  _hover={{ color: 'teal.300' }} onClick={onOpen} > Sign in </Button>
+          <Button display={{base:"none",md:"block",lg:"block"}}  fontSize="14px" variant="none"  _hover={{ color: 'teal.300' }} onClick={onOpen} > Account </Button>
           {/* mobile navs */}
           <Button   variant={"unstyled"} display={{base:"block",md:"none",lg:"none"}}   ></Button>
            
@@ -137,14 +150,22 @@ const Navbar = () => {
             </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Button  size="md"
+          {isAuthenticated && <Text ml="25%"  color="green.600" as="i" fontSize="md" fontWeight="semibold">Welcome  {user.name}</Text>} <br />
+            { isAuthenticated? <Button  size="md"
               height="38px"
               width={{base:"335px",md:"400px",lg:"460px"}}
               margin="auto"
               bg="#c83259"
               color="white"
               variant="none"
-              _hover={{ backgroundColor: "blue.400" }} >Sign in</Button> 
+              _hover={{ backgroundColor: "red.400" }} onClick={() => logout({ returnTo: window.location.origin }, logoutAleart())} >Log Out</Button>: <Button  size="md"
+              height="38px"
+              width={{base:"335px",md:"400px",lg:"460px"}}
+              margin="auto"
+              bg="#c83259"
+              color="white"
+              variant="none"
+              _hover={{ backgroundColor: "blue.400" }} onClick={loginWithRedirect} >Sign Up</Button> } 
             
               <Heading mt={4} marginLeft="30%" cursor="pointer" color="teal.500" as="h5" size="sm"  _hover={{ color: 'teal.500' }}> create a free account</Heading>
             

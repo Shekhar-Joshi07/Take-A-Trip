@@ -5,13 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from '@chakra-ui/react'
+import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
      <BrowserRouter>
+      <Auth0Provider  domain="dev-s0ldrvwo1tpjbpsr.us.auth0.com"
+    clientId="0ADkDfVQqVzrZ9MO47O7mILUfMAbZE39"
+    authorizationParams={{
+        redirect_uri: window.location.origin
+      }} >  
      <ChakraProvider>
     <App />
     </ChakraProvider>
+    </Auth0Provider>
      </BrowserRouter>
     
   

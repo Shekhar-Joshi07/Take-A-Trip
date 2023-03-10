@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import {
   Box,
   Image,
@@ -9,10 +9,26 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
+} from '@chakra-ui/react'
 import { IoLocationSharp } from "react-icons/io5";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useToast } from '@chakra-ui/react'
+
 const Singlehotel = () => {
+  const {isAuthenticated} = useAuth0();
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { hotelId } = useParams();
   const [hotel, setHotel] = useState(null);
+  const toast = useToast()
   useEffect(() => {
     fetch(`https://long-plum-mite-cape.cyclic.app/results/${hotelId}`)
       .then((response) => response.json())
@@ -24,26 +40,38 @@ const Singlehotel = () => {
         console.log(error.message);
       });
   }, []);
+
+  const loginAleart= ()=>{
+    toast({
+      title: 'Please Login First!',
+      status: 'error',
+      duration: 4000,
+      isClosable: true,
+    })
+  }
   return (
     <Box
       m="auto"
       mt="5rem"
       w="90%"
       h="max-content"
-     
-      display="flex"
+      mb="5rem"
+      display={{ base:"block", md:"flex",lg:"flex"}}
       gap="30px"
     >
-      <Stack w="50%">
+      <Stack w={{base:"100%",md:"60%",lg:"50%"}}>
         <Image
           width={{ base: "100%", lg: "558px" }}
           h="300"
           src={hotel?.images_large[0]}
         />
-        <Image width={"35%"} h="100" src={hotel?.images_large[2]} />
-        <Image width={"35%"} h="100" src={hotel?.images_large[3]} />
+        <HStack >
+        <Image width={{base:"50%",md:"52%",lg:"44%"}} h="120" src={hotel?.images_large[2]} />
+        <Image width={{base:"47%",md:"50%",lg:"43%"}} h="120" src={hotel?.images_large[3]} />
+        </HStack>
+       
       </Stack>
-      <Stack  w="40%">
+      <Stack  w={{base:"100%",md:"45%",lg:"40%"}}>
         <Heading as={"h3"} fontSize="4xl">
           {hotel?.title}
         </Heading>
@@ -68,7 +96,7 @@ const Singlehotel = () => {
         <Text fontWeight="bold" color="red.800" fontSize={"2xl"}>
           Total Bathrooms: {hotel?.number_of_bathrooms}
         </Text>
-        <Button
+       {isAuthenticated ? <Button
           w="43%"
           colorScheme="blue"
           size="md"
@@ -76,9 +104,21 @@ const Singlehotel = () => {
           _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
           _active={{ transform: "scale(0.95)" }}
           _focus={{ outline: "none" }}
+          onClick={onOpen}
         >
           BOOK NOW
-        </Button>
+        </Button>:<Button
+          w="43%"
+          colorScheme="blue"
+          size="md"
+          fontWeight="bold"
+          _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
+          _active={{ transform: "scale(0.95)" }}
+          _focus={{ outline: "none" }}
+          onClick={loginAleart}
+        >
+          BOOK NOW
+        </Button> }
         <br />
         <Text color={"gray.600"}>
           Nestled in the south of Goa is a home away from home. Keeping in mind
@@ -93,6 +133,22 @@ const Singlehotel = () => {
           aqua as well as botanical life in it.
         </Text>
       </Stack>
+      <Modal isOpen={isOpen} onClose={onClose} size={{base:"sm",md:"md",lg:"lg"}}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader m="auto">Congratulations🥳</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody textAlign={"center"}>
+           <Text fontWeight="medium" fontSize={"lg"}> Your booking has confirmed !</Text>
+          </ModalBody>
+
+          <ModalFooter>
+           <Link to="/"><Button colorScheme='blue' mr={3} >
+              Explore more !
+            </Button></Link> 
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

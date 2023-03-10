@@ -27,9 +27,12 @@ const Banner = () => {
   const [q, setQ] = useState(" ")
   const [searchdata,setSearchdata ] = useState(null)
   const [loading,setLoading] = useState(false)
+  const[filled,setfilled] = useState("")
    const navigate = useNavigate()
   const  handleInputChange = (e)=>{
+   
     setQ(e.target.value)
+    setfilled(e.target.value)
   };
   const handleSearch = async(e)=>{
       setLoading(true)
@@ -312,6 +315,7 @@ const Banner = () => {
             alignItems="centre"
           >
             <Button
+              isDisabled={!filled}
               isLoading ={loading}
               onClick={handleSearch}
               size="md"
